@@ -1,0 +1,32 @@
+{
+  "name": "Zulkernyne · Software Engineer",
+  "short_name": "Zulkernyne",
+  "description": "Math & CS student at UCalgary. Backend systems, ML pipelines, full-stack apps.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FDFCF8",
+  "theme_color": "#FDFCF8",
+  "lang": "en-CA",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

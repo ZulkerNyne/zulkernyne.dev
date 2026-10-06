@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zulkernyne · Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Gochi+Hand&family=Kalam:wght@300;400;700&family=Permanent+Marker&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --ink:#1a1a2e;
+  --ink2:#4a4a6a;
+  --paper:#FDFCF8;
+  --line:#dde0e8;
+  --red-margin:rgba(210,55,55,0.26);
+}
+body{
+  font-family:'Caveat',cursive;
+  background-color:var(--paper);
+  background-image:linear-gradient(var(--line) 1px,transparent 1px);
+  background-size:100% 2.4rem;
+  color:var(--ink);
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;
+  left:3.8rem;top:0;bottom:0;width:2px;
+  background:var(--red-margin);
+  z-index:0;pointer-events:none;
+}
+.grain{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.04;z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;
+}
+
+/* highlights */
+.hy{background:linear-gradient(120deg,rgba(248,231,28,.38),rgba(248,231,28,.72));padding:0 4px;border-radius:2px}
+.hp{background:linear-gradient(120deg,rgba(255,105,180,.25),rgba(255,105,180,.52));padding:0 4px;border-radius:2px}
+.hb{background:linear-gradient(120deg,rgba(74,144,226,.18),rgba(74,144,226,.45));padding:0 4px;border-radius:2px}
+.hg{background:linear-gradient(120deg,rgba(80,200,90,.18),rgba(80,200,90,.48));padding:0 4px;border-radius:2px}
+.hpu{background:linear-gradient(120deg,rgba(155,89,182,.18),rgba(155,89,182,.45));padding:0 4px;border-radius:2px}
+
+/* ── NAV ── */
+.nav-wrap{
+  position:sticky;top:0;z-index:200;
+  background:rgba(253,252,248,.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(26,26,46,.07);
+}
+nav{max-width:1080px;margin:0 auto;padding:.65rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.nav-l{display:flex;align-items:center;gap:.9rem}
+.nav-avatar{width:46px;height:46px;border-radius:50% 44% 55% 47%/47% 55% 44% 52%;object-fit:cover;border:2.5px solid var(--ink);transform:rotate(-3deg);transition:transform .3s}
+.nav-avatar:hover{transform:rotate(0)}
+.nav-name{font-family:'Permanent Marker',cursive;font-size:1.15rem;line-height:1.1;transform:rotate(-1.5deg);display:inline-block}
+.nav-sub{font-family:'Gochi Hand',cursive;font-size:.8rem;color:var(--ink2)}
+.dot{width:6px;height:6px;border-radius:50%;background:#5dde6a;display:inline-block;box-shadow:0 0 0 3px rgba(93,222,106,.3);animation:pg 2s infinite;margin-right:3px}
+@keyframes pg{0%,100%{box-shadow:0 0 0 3px rgba(93,222,106,.3)}50%{box-shadow:0 0 0 6px rgba(93,222,106,.07)}}
+.nav-links{display:flex;gap:.15rem;list-style:none;align-items:center}
+.nav-links li:nth-child(1){transform:rotate(-1.8deg) translateY(1px)}
+.nav-links li:nth-child(2){transform:rotate(1.2deg) translateY(-1px)}
+.nav-links li:nth-child(3){transform:rotate(-.8deg) translateY(2px)}
+.nav-links li:nth-child(4){transform:rotate(1.6deg) translateY(-1px)}
+.nav-links li:nth-child(5){transform:rotate(-1.2deg) translateY(1px)}
+.nav-links li:nth-child(6){transform:rotate(.8deg)}
+.nav-links a{font-family:'Kalam',cursive;font-size:.95rem;color:var(--ink);text-decoration:none;padding:.28rem .6rem;position:relative;transition:color .2s;display:inline-block}
+.nav-links a .sq{position:absolute;left:4px;right:4px;bottom:-2px;height:6px;overflow:visible;opacity:0;transition:opacity .2s;pointer-events:none}
+.nav-links a:hover .sq,.nav-links a.active .sq{opacity:1}
+.nav-links a:hover{color:#4A90E2}
+.nav-links a.active{color:#FF69B4}
+.btn-nav{font-family:'Kalam',cursive;font-weight:700;font-size:.9rem;padding:.38rem 1.1rem;background:rgba(248,231,28,.85);border:2.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;box-shadow:3px 3px 0 var(--ink);text-decoration:none;color:var(--ink);transform:rotate(-1deg);display:inline-block;transition:all .18s}
+.btn-nav:hover{transform:scale(1.04) rotate(-1deg);box-shadow:5px 5px 0 var(--ink)}
+
+/* ── PAGE ── */
+.page{max-width:1080px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+
+/* ── HERO ── */
+.hero{padding:4rem 0 2.5rem;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-eye{font-family:'Gochi Hand',cursive;font-size:1rem;color:#a09070;transform:rotate(-1.5deg);margin-bottom:.7rem;display:block}
+.hero-title{font-family:'Permanent Marker',cursive;font-size:clamp(3rem,8.5vw,6.5rem);line-height:1.05;position:relative;margin-bottom:.2rem}
+.hero-title svg{position:absolute;bottom:-8px;left:0;width:100%}
+.hero-sub{font-family:'Kalam',cursive;font-size:clamp(1rem,2vw,1.28rem);line-height:1.8;color:var(--ink2);max-width:600px;margin:2rem auto 1.6rem}
+.badges{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin-bottom:1.8rem}
+.badge{font-family:'Caveat',cursive;font-size:.85rem;font-weight:600;padding:3px 11px;border:2px solid currentColor;border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.stats{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center;margin-bottom:1.8rem}
+.stat{font-family:'Caveat',cursive;font-weight:700;text-align:center;padding:.5rem 1rem;border:2.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;transition:transform .2s;cursor:default}
+.stat:nth-child(2){border-radius:15px 255px 15px 225px/225px 15px 255px 15px}
+.stat:nth-child(3){border-radius:120px 8px 120px 8px/8px 120px 8px 120px}
+.stat:hover{transform:scale(1.07) rotate(2deg)}
+.stat-n{font-family:'Permanent Marker',cursive;font-size:1.55rem;display:block;line-height:1}
+.stat-l{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2)}
+.ctas{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Kalam',cursive;font-weight:700;font-size:.98rem;padding:.62rem 1.7rem;border:2.5px solid var(--ink);box-shadow:4px 4px 0 var(--ink);text-decoration:none;color:var(--ink);display:inline-block;transition:all .18s}
+.btn:hover{transform:scale(1.04);box-shadow:6px 6px 0 var(--ink)}
+.bw{border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.bw2{border-radius:15px 255px 15px 225px/225px 15px 255px 15px}
+
+hr.dash{border:none;border-top:2px dashed rgba(26,26,46,.12);margin:0}
+.sec-eye{font-family:'Gochi Hand',cursive;font-size:.95rem;color:#a09070;display:inline-block;transform:rotate(-1.1deg);margin-bottom:.25rem}
+.sec-h{font-family:'Permanent Marker',cursive;font-size:2.1rem;color:var(--ink);margin-bottom:1.8rem}
+
+/* ── EXPERIENCE — written on the page, no boxes ── */
+.exp-wrap{padding:4rem 0}
+.exp-entry{margin-bottom:3.2rem;padding-bottom:2.4rem;border-bottom:1.5px dashed rgba(26,26,46,.1)}
+.exp-entry:last-child{border-bottom:none;margin-bottom:0}
+
+/* top line: role + date side by side */
+.exp-top{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.18rem}
+.exp-role{font-family:'Permanent Marker',cursive;font-size:1.55rem;color:#4A90E2;line-height:1.2}
+.exp-date{font-family:'Gochi Hand',cursive;font-size:.95rem;color:#a09070;transform:rotate(1.2deg);display:inline-block}
+
+/* org line */
+.exp-org{font-family:'Kalam',cursive;font-size:1rem;color:var(--ink2);margin-bottom:.9rem;font-style:italic}
+
+/* body text — flows straight on ruled lines */
+.exp-body{font-family:'Kalam',cursive;font-size:1.02rem;color:var(--ink2);line-height:2.35;margin-bottom:.8rem}
+
+/* bullet items still inline with arrows, no boxes */
+.exp-pts{list-style:none;margin-bottom:.8rem}
+.exp-pts li{font-family:'Caveat',cursive;font-size:1.02rem;color:var(--ink2);line-height:2.3;padding-left:1.5rem;position:relative}
+.exp-pts li::before{content:'→';position:absolute;left:0;opacity:.5}
+
+.exp-tags{display:flex;gap:.38rem;flex-wrap:wrap;margin-top:.6rem}
+.exp-tag{font-family:'Caveat',cursive;font-size:.82rem;font-weight:600;padding:2px 9px;border:2px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+.exp-tag:nth-child(2n){border-radius:15px 255px 15px 225px/225px 15px 255px 15px}
+
+/* annotation in margin style */
+.exp-note{font-family:'Gochi Hand',cursive;font-size:.82rem;color:#d23737;padding-left:.9rem;display:block;margin-top:.4rem}
+.exp-note::before{content:'✦ ';opacity:.7}
+
+/* experience entry with side image */
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem;align-items:center}
+.exp-grid.flip{direction:rtl}
+.exp-grid.flip>*{direction:ltr}
+.exp-img-wrap{overflow:hidden;border-radius:4px 14px 8px 12px/12px 8px 14px 4px}
+.exp-img-wrap img{width:100%;display:block;transition:filter .5s}
+@media(max-width:860px){
+  .exp-grid{grid-template-columns:1fr;direction:ltr!important}
+  .exp-grid>*{direction:ltr!important}
+}
+
+/* ── PROJECTS — original image+text alternating layout ── */
+.proj-wrap{padding:4rem 0}
+.featured-proj{display:grid;grid-template-columns:1fr 1fr;gap:2.8rem;align-items:center;margin-bottom:5rem;position:relative}
+.featured-proj:last-child{margin-bottom:0}
+.featured-proj.flip{direction:rtl}
+.featured-proj.flip>*{direction:ltr}
+
+.proj-img-wrap{overflow:hidden;position:relative;border-radius:4px 14px 8px 12px/12px 8px 14px 4px;}
+.proj-img-wrap img{width:100%;display:block;filter:grayscale(0%);transition:filter .5s}
+.featured-proj:hover .proj-img-wrap img{filter:grayscale(0%)}
+.proj-num{font-family:'Gochi Hand',cursive;font-size:.88rem;color:#a09070;margin-bottom:.25rem;display:block}
+.proj-title{font-family:'Permanent Marker',cursive;font-size:2rem;line-height:1.15;margin-bottom:.55rem}
+.proj-label{font-family:'Caveat',cursive;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 9px;color:#fff;transform:rotate(-2deg);display:inline-block;margin-bottom:.7rem;border-radius:3px}
+.proj-desc{font-family:'Kalam',cursive;font-size:1rem;color:var(--ink2);line-height:1.75;margin-bottom:1rem}
+.proj-bullets{list-style:none;margin-bottom:1rem}
+.proj-bullets li{font-family:'Caveat',cursive;font-size:.98rem;color:var(--ink2);padding:.15rem 0 .15rem 1.3rem;position:relative;line-height:1.5}
+.proj-bullets li::before{content:'→';position:absolute;left:0;opacity:.5}
+.proj-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.proj-tag{font-family:'Caveat',cursive;font-size:.82rem;font-weight:600;padding:2px 8px;border:1.5px solid rgba(26,26,46,.22);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;color:var(--ink2)}
+.proj-divider{width:55%;margin:0 auto 4.5rem;border:none;border-top:2px dashed rgba(26,26,46,.11)}
+
+/* ── TECH STACK ── */
+.tech-wrap{padding:4rem 0}
+.tech-cat{font-family:'Gochi Hand',cursive;font-size:.95rem;display:inline-block;margin-bottom:.8rem;border-bottom:2.5px solid currentColor;padding-bottom:1px;transform:rotate(-.4deg)}
+.tech-row{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.8rem}
+.tpill{display:flex;align-items:center;gap:.38rem;padding:.42rem .8rem;background:#fff;border:2.5px solid var(--ink);border-radius:255px 15px 225px 15px/15px 225px 15px 255px;font-family:'Caveat',cursive;font-size:.87rem;font-weight:600;transition:all .2s;cursor:default}
+.tpill:hover{transform:scale(1.08) rotate(2deg);box-shadow:3px 3px 0 var(--ink)}
+.tpill:nth-child(2n){border-radius:15px 255px 15px 225px/225px 15px 255px 15px}
+.tpill:nth-child(3n){border-radius:120px 8px 120px 8px/8px 120px 8px 120px}
+.tpill img{width:20px;height:20px;object-fit:contain;mix-blend-mode:multiply}
+
+/* ── ABOUT — no boxes, written on the page ── */
+.about-wrap{padding:4rem 0}
+
+/* two-column: left=text, right=quick facts written as annotations */
+.about-layout{display:grid;grid-template-columns:1.7fr 1fr;gap:3.5rem;align-items:start}
+
+/* left: flowing prose on lined paper */
+.about-prose{}
+.about-prose .lede{font-family:'Permanent Marker',cursive;font-size:1.25rem;color:#4A90E2;line-height:1.4;margin-bottom:1.1rem;display:block}
+.about-prose p{font-family:'Kalam',cursive;font-size:1.02rem;color:var(--ink2);line-height:2.35;margin-bottom:1.1rem}
+.about-prose p:last-child{margin-bottom:0}
+
+/* margin note inline */
+.mnote{font-family:'Gochi Hand',cursive;font-size:.82rem;color:#d23737;display:block;padding-left:.9rem;margin:.3rem 0 .9rem;transform:rotate(-.5deg)}
+.mnote::before{content:'↳ ';opacity:.65}
+
+/* right: annotation column — no boxes, just labeled facts stacked */
+.about-facts{}
+.fact-group{margin-bottom:2.2rem}
+.fact-label{font-family:'Gochi Hand',cursive;font-size:.82rem;color:#a09070;display:block;margin-bottom:.2rem;transform:rotate(-.6deg)}
+.fact-val{font-family:'Permanent Marker',cursive;font-size:1.45rem;color:var(--ink);line-height:1.2;display:block}
+.fact-sub{font-family:'Kalam',cursive;font-size:.88rem;color:var(--ink2);display:block;margin-top:.15rem}
+
+/* horizontal divider between facts */
+.fact-div{border:none;border-top:1.5px dashed rgba(26,26,46,.15);margin:.3rem 0 1.8rem}
+
+/* bottom: three principle paragraphs, no boxes, just headings + text */
+.about-principles{margin-top:3rem;display:grid;grid-template-columns:repeat(3,1fr);gap:2.8rem}
+.principle{}
+.principle h4{font-family:'Kalam',cursive;font-weight:700;font-size:1rem;color:var(--ink);margin-bottom:.5rem;border-bottom:2px solid currentColor;padding-bottom:3px;display:inline-block}
+.principle p{font-family:'Caveat',cursive;font-size:.98rem;color:var(--ink2);line-height:1.75}
+.principle .aside{font-family:'Gochi Hand',cursive;font-size:.78rem;color:#a09070;display:block;margin-top:.5rem;transform:rotate(-.5deg)}
+
+/* ── FOOTER ── */
+footer{border-top:2px dashed rgba(26,26,46,.15);background:rgba(255,255,255,.5);padding:3rem 2rem;margin-top:3rem}
+.fi{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.f-name{font-family:'Permanent Marker',cursive;font-size:1.45rem}
+.f-tag{font-family:'Kalam',cursive;font-size:.88rem;color:var(--ink2);font-style:italic}
+.f-note{font-family:'Gochi Hand',cursive;font-size:.83rem;color:#a09070;transform:rotate(-2deg);display:inline-block}
+.f-links{display:flex;gap:.55rem;flex-wrap:wrap}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(16px);transition:opacity .5s,transform .5s}
+.rev.on{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .featured-proj{grid-template-columns:1fr;direction:ltr!important}
+  .featured-proj>*{direction:ltr!important}
+  .about-layout{grid-template-columns:1fr}
+  .about-principles{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media(max-width:520px){
+  body::before{display:none}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<!-- ══ NAV ══ -->
+<div class="nav-wrap">
+<nav>
+  <div class="nav-l">
+    <img class="nav-avatar" alt="Zulkernyne"
+      src="images/zulkernyne.png"/>
+
+    <div>
+      <div class="nav-name">Zulkernyne</div>
+      <div class="nav-sub"><span class="dot"></span>Math &amp; CS · UCalgary</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero" class="active">Home<svg class="sq" viewBox="0 0 60 6"><path d="M2 4 C10 1,20 5,30 3 S50 1,58 4" fill="none" stroke="#FF69B4" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+    <li><a href="#experience">Experience<svg class="sq" viewBox="0 0 80 6"><path d="M2 3 C15 1,30 5,45 2 S65 5,78 3" fill="none" stroke="#4A90E2" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+    <li><a href="#stack">Stack<svg class="sq" viewBox="0 0 48 6"><path d="M2 3 C10 1,22 5,30 2 S42 5,46 3" fill="none" stroke="#9B59B6" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+    <li><a href="#about">About<svg class="sq" viewBox="0 0 50 6"><path d="M2 4 C10 1,22 5,32 2 S44 4,48 3" fill="none" stroke="#F8E71C" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+    <li><a href="#contact">Contact<svg class="sq" viewBox="0 0 62 6"><path d="M2 3 C14 1,28 5,40 2 S55 5,60 3" fill="none" stroke="#FF69B4" stroke-width="2.5" stroke-linecap="round"/></svg></a></li>
+  </ul>
+  <a class="btn-nav" href="#contact">Say Hi ✏</a>
+</nav>
+</div>
+
+<div class="page">
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <span class="hero-eye">✏ math × code × vision</span>
+  <h1 class="hero-title">
+    Hey, I'm ZulkerNyne!
+    <svg viewBox="0 0 460 18" height="18" xmlns="http://www.w3.org/2000/svg">
+      <path d="M5 14 C80 5,260 3,452 15" fill="none" stroke="#4A90E2" stroke-linecap="round" stroke-width="5" opacity=".7"/>
+    </svg>
+  </h1>
+  <p class="hero-sub">
+    <span class="hy" style="font-weight:700">Math &amp; CS student at UCalgary</span> building backend systems,
+    SaaS products, and full-stack apps that ship to real users.
+    Currently leading software at <span class="hp" style="font-weight:700">AUV Calgary</span> —
+    building ROS2 architecture and Gazebo simulation for an autonomous underwater vehicle targeting RoboSub 2027.
+  </p>
+  <div class="badges">
+    <span class="badge" style="color:#185FA5;border-color:#4A90E2;background:rgba(74,144,226,.09)">Software Lead · AUV Calgary</span>
+    <span class="badge" style="color:#3B6D11;border-color:#5dde6a;background:rgba(93,222,106,.09)">Backend · Full-Stack</span>
+    <span class="badge" style="color:#993556;border-color:#FF69B4;background:rgba(255,105,180,.1)">Production Apps</span>
+    <span class="badge" style="color:#6b3fa0;border-color:#9B59B6;background:rgba(155,89,182,.09)">Math &amp; CS · UCalgary</span>
+  </div>
+  <div class="stats">
+    <div class="stat" style="background:rgba(74,144,226,.1)">
+      <span class="stat-n" style="color:#185FA5">5</span>
+      <span class="stat-l">Live in Production</span>
+    </div>
+    <div class="stat" style="background:rgba(255,105,180,.14)">
+      <span class="stat-n" style="color:#993556">5</span>
+      <span class="stat-l">Live Websites</span>
+    </div>
+    <div class="stat" style="background:rgba(80,200,90,.16)">
+      <span class="stat-n" style="color:#3B6D11">5</span>
+      <span class="stat-l">Engineers Led</span>
+    </div>
+    <div class="stat" style="background:rgba(248,231,28,.38)">
+      <span class="stat-n" style="color:#854F0B;font-size:1.1rem">SWE</span>
+      <span class="stat-l">Target Role</span>
+    </div>
+  </div>
+  <div class="ctas">
+    <a class="btn bw" href="#experience" style="background:rgba(248,231,28,.8)">See My Work →</a>
+    <a class="btn bw2" href="https://github.com/ZulkerNyne" target="_blank" style="background:#fff">GitHub ↗</a>
+    <a class="btn bw" href="#contact" style="background:#fff">Resume ↗</a>
+  </div>
+</section>
+
+<hr class="dash"/>
+
+<!-- ══ EXPERIENCE — no timeline, no boxes, written on page ══ -->
+<section class="exp-wrap" id="experience">
+  <div class="sec-eye">work &amp; leadership →</div>
+  <h2 class="sec-h">Experience</h2>
+
+  <!-- AUV Calgary -->
+  <div class="rev">
+    <div class="exp-entry">
+      <div class="exp-grid">
+        <div class="exp-img-wrap" style="transform:rotate(-1.5deg)">
+          <img alt="AUV Calgary" src="images/auv.png"/>
+        </div>
+        <div>
+          <div class="exp-top">
+            <span class="exp-role">Software Lead</span>
+            <span class="exp-date">Sept 2025 → Present</span>
+          </div>
+          <div class="exp-org"><a href="https://auvucalgary.ca" target="_blank" style="color:#4A90E2;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px">auvucalgary.ca ↗</a> · University of Calgary</div>
+
+          <p class="exp-body">
+            Leading the software sub-team for a <span class="hy" style="font-weight:700">founding-year autonomous underwater vehicle team</span>,
+            building everything from scratch toward our first RoboSub 2027 competition entry.
+            Designed the ROS2 architecture, set up the Gazebo simulation environment, and shipped the team's public website.
+          </p>
+
+          <ul class="exp-pts">
+            <li>Designed the <span class="hb" style="font-weight:700">ROS2 node architecture</span> — auv_control (thrust), perception_mock (object markers), camera bridging, and TF tree</li>
+            <li>Built the <span class="hy" style="font-weight:700">Gazebo simulation environment</span> with custom Tethys AUV model, RoboSub 2025 world, forward + downward cameras, and RViz integration</li>
+            <li>Shipped the <a href="https://auvucalgary.ca" target="_blank" style="color:#4A90E2">team website</a> — React + Vite SPA with team profiles, vehicle page, blog, docs, media gallery, sponsors, and judges hub</li>
+            <li>Leading a 5-person software sub-team across simulation, perception, and controls</li>
+          </ul>
+          <span class="exp-note">founding team — built all software architecture decisions from zero, no handoff</span>
+
+          <div class="exp-tags">
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">Python</span>
+            <span class="exp-tag" style="background:rgba(248,231,28,.38)">ROS2</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Gazebo</span>
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">React</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Vite</span>
+            <span class="exp-tag" style="background:rgba(155,89,182,.1)">Cloudinary</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FITRA Gym -->
+  <div class="rev">
+    <div class="exp-entry">
+      <div class="exp-grid flip">
+        <div class="exp-img-wrap" style="transform:rotate(2deg)">
+          <img alt="FITRA Gym" src="images/fitragym.png"/>
+        </div>
+        <div>
+          <div class="exp-top">
+            <span class="exp-role">Backend Developer</span>
+            <span class="exp-date">Oct 2026 → Present</span>
+          </div>
+          <div class="exp-org">FITRA Gym · <a href="https://fitragym.ca" target="_blank" style="color:#3B6D11;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px">fitragym.ca ↗</a></div>
+
+          <p class="exp-body">
+            Building the <span class="hg" style="font-weight:700">production backend</span> for a women's fitness centre booking system —
+            Express + Prisma + PostgreSQL, replacing a 3,648-line localStorage prototype with a real server.
+            Two portals (Community &amp; School), four roles (member, student, trainer, admin),
+            13 Prisma models covering bookings, payments, memberships, credits, and audit logging.
+          </p>
+
+          <ul class="exp-pts">
+            <li>Credit ledger via SUM-delta pattern — no running balance to desync, atomic capacity enforcement</li>
+            <li>Waitlist offer chain with 60-min reserve window, 4-day refund cutoff, FTR-XXXXX booking refs</li>
+            <li>Stripe Checkout integration for drop-ins, memberships, and credit packs — all money in integer cents CAD</li>
+            <li>JWT sessions via HttpOnly cookies, bcrypt 12-round hashing, Resend transactional email, audit log on all admin actions</li>
+            <li>9 route modules: auth, bookings, passes, schedule, roster, profile, admin, stripe, wave2</li>
+          </ul>
+          <span class="exp-note">one Express server hosts both the wave2 marketing site and the booking app at /app</span>
+
+          <div class="exp-tags">
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">Express</span>
+            <span class="exp-tag" style="background:rgba(155,89,182,.1)">Prisma</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">PostgreSQL</span>
+            <span class="exp-tag" style="background:rgba(248,231,28,.38)">Stripe</span>
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">JWT Auth</span>
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">Resend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Khutba -->
+  <div class="rev">
+    <div class="exp-entry">
+      <div class="exp-grid">
+        <div class="exp-img-wrap" style="transform:rotate(-2deg)">
+          <img alt="Khutba" src="images/khutba.png"/>
+        </div>
+        <div>
+          <div class="exp-top">
+            <span class="exp-role">Software Developer</span>
+            <span class="exp-date">May 2026 → Oct 2026</span>
+          </div>
+          <div class="exp-org">Khutba · <a href="https://khutba.net" target="_blank" style="color:#4A90E2;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px">khutba.net ↗</a> · SaaS Product</div>
+
+          <p class="exp-body">
+            Built a <span class="hb" style="font-weight:700">SaaS sermon planning platform</span> for mosque imams.
+            Next.js + Prisma + PostgreSQL with session-based auth, role-based access, mosque invitations,
+            and 18 API route groups covering sermons, themes, org management, admin, notifications, Stripe billing, and data export.
+          </p>
+
+          <ul class="exp-pts">
+            <li>Designed the <span class="hb" style="font-weight:700">4-season × 16-slot annual plan model</span> with elastic sub-bouquets — structurally coherent yet flexible per imam's needs</li>
+            <li>Hijri occasion interleaving: Eid, Ramadan, and special sermons auto-placed by date into the correct seasonal block</li>
+            <li>Cross-season spillover, dual-delivery Eid stacking, moon-sighting ±1 day tolerance</li>
+            <li>Mosque invite system, multi-imam collaboration, Stripe subscription billing (Personal/Team/Institution tiers)</li>
+            <li>Resend transactional email, rate limiting, structured logging, Prisma migrations</li>
+          </ul>
+          <span class="exp-note">designed the entire annual-plan data model from scratch — 64-slot elastic architecture</span>
+
+          <div class="exp-tags">
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Next.js</span>
+            <span class="exp-tag" style="background:rgba(155,89,182,.1)">Prisma</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">PostgreSQL</span>
+            <span class="exp-tag" style="background:rgba(248,231,28,.38)">Stripe</span>
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">Resend</span>
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">TypeScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CycleBreaker -->
+  <div class="rev">
+    <div class="exp-entry">
+      <div class="exp-grid flip">
+        <div class="exp-img-wrap" style="transform:rotate(1.5deg)">
+          <img alt="CycleBreaker" src="images/cyclebreaker.png"/>
+        </div>
+        <div>
+          <div class="exp-top">
+            <span class="exp-role">Backend Developer</span>
+            <span class="exp-date">Jan 2026 → Apr 2026</span>
+          </div>
+          <div class="exp-org">CycleBreaker · <a href="https://cyclebreaker.net" target="_blank" style="color:#9B59B6;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px">cyclebreaker.net ↗</a> · Education Platform</div>
+
+          <p class="exp-body">
+            Built the <span class="hpu" style="font-weight:700">Express + Prisma + PostgreSQL backend</span> for a science-based
+            addiction recovery education platform serving youth. JWT auth with silent refresh, role-based access (User/Admin),
+            full admin CMS, automated email system, and a rule-based risk prediction engine.
+          </p>
+
+          <ul class="exp-pts">
+            <li>Recovery tools: private journal with mood/craving/stress tracking, HALT indicators, daily check-ins, recovery event logging</li>
+            <li><span class="hpu" style="font-weight:700">Rule-based risk prediction</span> — 7-day and 30-day trend aggregation, trigger frequency, risk scoring with suggested actions</li>
+            <li>Full admin CMS: articles, courses with multi-lesson paths, videos, quizzes with scoring, resources, and 36-field homepage editor</li>
+            <li>Email system: welcome, password reset, weekly recovery digest (personalized stats + new content), account deletion confirmation</li>
+            <li>Account lockout after 5 failed logins, Helmet.js headers, rate limiting (10/15min auth, 100/min general), Zod validation on all inputs</li>
+          </ul>
+          <span class="exp-note">deployed on Railway (backend) + Netlify (frontend) — live at cyclebreaker.net</span>
+
+          <div class="exp-tags">
+            <span class="exp-tag" style="background:rgba(155,89,182,.1)">Express</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Prisma</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">PostgreSQL</span>
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">JWT Auth</span>
+            <span class="exp-tag" style="background:rgba(248,231,28,.38)">Zod</span>
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">Railway</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NikahNet -->
+  <div class="rev">
+    <div class="exp-entry">
+      <div class="exp-grid">
+        <div class="exp-img-wrap" style="transform:rotate(-1.8deg)">
+          <img alt="NikahNet" src="images/nikahnet.png"/>
+        </div>
+        <div>
+          <div class="exp-top">
+            <span class="exp-role">Founder &amp; Full-Stack Developer</span>
+            <span class="exp-date">2025 → Present</span>
+          </div>
+          <div class="exp-org">NikahNet · <a href="https://nikahnet.net" target="_blank" style="color:#FF69B4;text-decoration:underline;text-decoration-style:wavy;text-underline-offset:3px">nikahnet.net ↗</a> · Live in Production</div>
+
+          <p class="exp-body">
+            A Muslim community matrimonial platform serving <span class="hp" style="font-weight:700">real users in production</span>.
+            React + Vite frontend on Vercel, Express 5 + Prisma + PostgreSQL on Railway,
+            Redis for rate limiting, Cloudflare R2 for photo storage, and Socket.IO for real-time messaging.
+            JWT auth built from the RFC — no Auth0, no shortcuts.
+          </p>
+
+          <ul class="exp-pts">
+            <li>Migrated live database from SQLite to PostgreSQL — <span class="hp" style="font-weight:700">zero data loss</span>, zero downtime</li>
+            <li>CSRF protection, request IDs, graceful shutdown, Redis-backed rate limiting</li>
+            <li>Multi-photo profiles (4/user via R2), compatibility scoring, admin verification flow</li>
+            <li>Real-time messaging with Socket.IO + Redis adapter, anti-spam enforcement</li>
+          </ul>
+          <span class="exp-note">solo-shipped the entire stack — frontend, backend, DB, deploy</span>
+
+          <div class="exp-tags">
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">React</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Vite</span>
+            <span class="exp-tag" style="background:rgba(155,89,182,.1)">Express 5</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Prisma</span>
+            <span class="exp-tag" style="background:rgba(80,200,90,.1)">PostgreSQL</span>
+            <span class="exp-tag" style="background:rgba(248,231,28,.38)">Redis</span>
+            <span class="exp-tag" style="background:rgba(255,105,180,.12)">Socket.IO</span>
+            <span class="exp-tag" style="background:rgba(74,144,226,.09)">Cloudflare R2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<hr class="dash"/>
+
+<!-- ══ TECH STACK ══ -->
+<section class="tech-wrap" id="stack">
+  <div class="sec-eye">tools of the trade →</div>
+  <h2 class="sec-h">Tech Sketchbook 🎨</h2>
+
+  <div class="rev">
+    <div class="tech-cat" style="color:#4A90E2">Frontend</div>
+    <div class="tech-row">
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt=""/>React</div>
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt=""/>Next.js</div>
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt=""/>TypeScript</div>
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt=""/>JavaScript</div>
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt=""/>Tailwind</div>
+      <div class="tpill" style="background:rgba(74,144,226,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt=""/>HTML5 / CSS3</div>
+    </div>
+  </div>
+
+  <div class="rev" style="transition-delay:.06s">
+    <div class="tech-cat" style="color:#9B59B6">Backend &amp; Systems</div>
+    <div class="tech-row">
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt=""/>Node.js</div>
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt=""/>Express</div>
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt=""/>Python</div>
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt=""/>C++</div>
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ros/ros-original.svg" alt=""/>ROS2</div>
+      <div class="tpill" style="background:rgba(155,89,182,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg" alt=""/>Socket.IO</div>
+    </div>
+  </div>
+
+  <div class="rev" style="transition-delay:.1s">
+    <div class="tech-cat" style="color:#E35D5D">Data, ML &amp; CV</div>
+    <div class="tech-row">
+      <div class="tpill" style="background:rgba(227,93,93,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" alt=""/>PostgreSQL</div>
+      <div class="tpill" style="background:rgba(227,93,93,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt=""/>Redis</div>
+      <div class="tpill" style="background:rgba(227,93,93,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/opencv/opencv-original.svg" alt=""/>OpenCV</div>
+      <div class="tpill" style="background:rgba(227,93,93,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg" alt=""/>PyTorch</div>
+      <div class="tpill" style="background:rgba(227,93,93,.07)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt=""/>NumPy</div>
+    </div>
+  </div>
+
+  <div class="rev" style="transition-delay:.14s">
+    <div class="tech-cat" style="color:#5dde6a">DevOps &amp; Tools</div>
+    <div class="tech-row">
+      <div class="tpill" style="background:rgba(93,222,106,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt=""/>Docker</div>
+      <div class="tpill" style="background:rgba(93,222,106,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt=""/>Git</div>
+      <div class="tpill" style="background:rgba(93,222,106,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt=""/>GitHub</div>
+      <div class="tpill" style="background:rgba(93,222,106,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt=""/>Linux</div>
+      <div class="tpill" style="background:rgba(93,222,106,.08)"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" alt=""/>Nginx</div>
+    </div>
+  </div>
+</section>
+
+<hr class="dash"/>
+
+<!-- ══ ABOUT — no boxes, clean two-column layout ══ -->
+<section class="about-wrap" id="about">
+  <div class="sec-eye">who's this guy →</div>
+  <h2 class="sec-h">About Me 👋</h2>
+
+  <div class="about-layout rev">
+
+    <!-- LEFT: prose written on the page -->
+    <div class="about-prose">
+      <span class="lede">Backend systems. Security by default. Math brain.</span>
+
+      <p>
+        I'm a <span class="hy" style="font-weight:700">Math &amp; Computer Science student at the University of Calgary</span>
+        who builds backend systems and SaaS products that ship to real users.
+        I care about the engineering underneath — not just whether it runs, but whether it's correct, maintainable, and ready to scale.
+      </p>
+      <span class="mnote">all 5 products are live in production — not localhost demos, not course assignments.</span>
+
+      <p>
+        Every project on this page is <span class="hb" style="font-weight:700">live and serving real users</span>.
+        My approach to auth, security, and data integrity is the same regardless of the project:
+        JWT auth from scratch, rate-limited endpoints, Zod validation at the boundary, and Prisma schema modelling before writing a single query.
+        These aren't features I add later — they're how I start.
+      </p>
+
+      <p>
+        Coming from pure mathematics, I think in <span class="hp" style="font-weight:700">systems and invariants</span>.
+        I ask why before I ask how. I've migrated a live production database without losing a single row,
+        designed a 64-slot elastic data model for a SaaS sermon planner,
+        built an atomic credit ledger and waitlist chain for a client gym booking system,
+        and led a 5-person software team building ROS2 architecture from scratch — all as a student,
+        all shipped, all live.
+      </p>
+      <span class="mnote">proof-first. then code. always.</span>
+    </div>
+
+    <!-- RIGHT: quick-read annotation column -->
+    <div class="about-facts">
+
+      <div class="fact-group">
+        <span class="fact-label">currently</span>
+        <span class="fact-val">Software Lead</span>
+        <span class="fact-sub">AUV Calgary · University of Calgary</span>
+      </div>
+
+      <hr class="fact-div"/>
+
+      <div class="fact-group">
+        <span class="fact-label">studying</span>
+        <span class="fact-val">Math &amp; CS</span>
+        <span class="fact-sub">University of Calgary</span>
+      </div>
+
+      <hr class="fact-div"/>
+
+      <div class="fact-group">
+        <span class="fact-label">all live in production</span>
+        <span class="fact-val">5 shipped products</span>
+        <span class="fact-sub">nikahnet.net · khutba.net · fitragym.ca · cyclebreaker.net · auvucalgary.ca</span>
+      </div>
+
+      <hr class="fact-div"/>
+
+      <div class="fact-group">
+        <span class="fact-label">stack</span>
+        <span class="fact-val">Express · Prisma · PG</span>
+        <span class="fact-sub">JWT, Stripe, Redis, Socket.IO, ROS2</span>
+      </div>
+
+      <hr class="fact-div"/>
+
+      <div class="fact-group">
+        <span class="fact-label">team led</span>
+        <span class="fact-val">5 engineers</span>
+        <span class="fact-sub">ROS2, Gazebo sim, perception &amp; control</span>
+      </div>
+
+      <hr class="fact-div"/>
+
+      <div class="fact-group">
+        <span class="fact-label">based in</span>
+        <span class="fact-val">Calgary 🇨🇦</span>
+        <span class="fact-sub">open to remote</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BOTTOM: three engineering principles, no boxes -->
+  <div class="about-principles rev" style="transition-delay:.1s">
+
+    <div class="principle">
+      <h4 style="color:#185FA5;border-color:rgba(74,144,226,.4)">Security isn't a feature</h4>
+      <p>
+        I implement auth correctly regardless of what the app is.
+        Refresh token rotation, rate-limited endpoints, input validation —
+        these are engineering defaults, not decisions I make per-project.
+        I read the RFC before I write the implementation.
+      </p>
+      <span class="aside">no Auth0. no shortcuts. just understanding.</span>
+    </div>
+
+    <div class="principle">
+      <h4 style="color:#3B6D11;border-color:rgba(80,200,90,.4)">Systems before syntax</h4>
+      <p>
+        Pure math trained me to model a system completely before touching the keyboard.
+        Prisma schemas, credit ledgers, elastic data models — I architect for correctness first.
+        I've migrated a live production schema mid-flight without data loss.
+      </p>
+      <span class="aside">invariants first. implementation second.</span>
+    </div>
+
+    <div class="principle">
+      <h4 style="color:#6b3fa0;border-color:rgba(155,89,182,.4)">Internals over abstractions</h4>
+      <p>
+        I read docs and source code. I understand Stack Overflow answers before using them.
+        Shipping to real users taught me what no textbook could — edge cases at 2am,
+        schema gaps you only see under load, the difference between working and correct.
+      </p>
+      <span class="aside">why before how. always.</span>
+    </div>
+
+  </div>
+</section>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer id="contact">
+  <div class="fi">
+    <div>
+      <div class="f-name">ZulkerNyne</div>
+      <div class="f-tag">drawn with ❤️ in Calgary 🇨🇦</div>
+      <div class="f-note" style="margin-top:.5rem">P vs NP? Just doodle it.</div>
+    </div>
+    <div class="f-links">
+      <a class="btn bw" href="mailto:mdzulker.nyne@ucalgary.ca" style="background:rgba(248,231,28,.8)">Email ✉</a>
+      <a class="btn bw2" href="#" style="background:#fff">Resume ↗</a>
+      <a class="btn" href="https://github.com/ZulkerNyne" target="_blank" style="background:#fff;border-radius:120px 8px 120px 8px/8px 120px 8px 120px">GitHub ↗</a>
+      <a class="btn bw" href="https://linkedin.com/in/zulkernyne" target="_blank" style="background:#fff">LinkedIn ↗</a>
+    </div>
+    <div class="f-note">© 2026 Zulkernyne</div>
+  </div>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')});
+},{threshold:0.06});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+const navIds=['hero','experience','stack','about','contact'];
+const navAs=document.querySelectorAll('.nav-links a');
+const secObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.getAttribute('id');
+      navAs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
+    }
+  });
+},{threshold:0.2,rootMargin:'-80px 0px -40% 0px'});
+navIds.forEach(id=>{const el=document.getElementById(id);if(el)secObs.observe(el);});
+
+let ticking=false;
+document.addEventListener('mousemove',e=>{
+  if(ticking)return;ticking=true;
+  requestAnimationFrame(()=>{
+    const mx=(e.clientX-window.innerWidth/2)*0.0022;
+    const my=(e.clientY-window.innerHeight/2)*0.0022;
+    document.querySelectorAll('.stat').forEach(el=>{
+      if(!el.matches(':hover'))el.style.transform=`translate(${mx}px,${my}px)`;
+    });
+    ticking=false;
+  });
+});
+</script>
+</body>
+</html>
